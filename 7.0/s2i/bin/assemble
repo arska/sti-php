@@ -6,6 +6,9 @@ shopt -s dotglob
 echo "---> Installing application source..."
 mv /tmp/src/* ./
 
+export PHPRC=${PHPRC:-/etc/php.ini}
+export PHP_INI_SCAN_DIR=${PHP_INI_SCAN_DIR:-/etc/php.d}
+
 envsubst < /opt/app-root/etc/php.ini.template > $PHPRC
 
 for template in /opt/app-root/etc/php.d/*.template; do
