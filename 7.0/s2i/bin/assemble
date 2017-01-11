@@ -6,6 +6,12 @@ shopt -s dotglob
 echo "---> Installing application source..."
 mv /tmp/src/* ./
 
+envsubst < /opt/app-root/etc/php.ini.template > $PHPRC
+
+for template in /opt/app-root/etc/php.d/*.template; do
+    envsubst < ${template} > $PHP_INI_SCAN_DIR/$(basename ${template} .template)
+done
+
 if [ -f composer.json ]; then
   echo "Found 'composer.json', installing dependencies using composer.phar... "
 
